@@ -4,6 +4,7 @@
 
     // importar lightbox
     import ImgTumbLightbox from '@/components/sistem/ImgTumbLightbox.vue'
+    import ImgLightbox from '@/components/sistem/ImgLightbox.vue'
     
     // helper de moneda y uri
     import { formatCurrency } from '@/helpers/price'
@@ -71,10 +72,26 @@
                     
                 </div>
 
+
+
+            </div>
+
+            <div class="flex flex-col items-center w-4/12 gap-1">
+
+                <ImgTumbLightbox 
+                    v-if="product.image_hero != ''"
+                    class=" card__product-img"
+                    :uri="urlBack()+product.image_hero_uri"
+                    :name="product.image_hero"
+                    :nameImg="product.category + ' - ' + product.name"
+                    nameAlbum="productos"
+                />
+
+                <!-- modal de producto -->
                 <div>
                     <!-- boton modal del producto -->
-                    <button @click="showModal = true" class="bg-primary-700 text-white font-bold border-2 border-primary-900 rounded-2xl px-3 py-1">
-                        Ver más detalles
+                    <button @click="showModal = true" class="bg-primary-200 text-sm text-white font-bold border-2 border-primary-300 rounded-2xl px-2 p-1">
+                        Ver mas
                     </button>
                     <!-- Modal del producto -->
                     <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-80 p-2 min-h-screen">
@@ -84,7 +101,7 @@
                     <!-- Contenido del modal centrado -->
                     <div class="relative bg-white rounded-lg shadow-lg max-w-2xl h-full w-full p-5 z-10 overflow-auto">
                         <div class="flex justify-between items-center">
-                        <h2 class="text-xl font-bold">{{ product.name }}</h2>
+                        <h2 class="text-lg font-bold">{{ product.name }}</h2>
                         <button @click="showModal = false" class="text-primary-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8">
                             <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/>
@@ -93,6 +110,9 @@
                         </div>
 
                         <!-- Detalle de producto en modal -->
+
+                        <hr class="border-primary-300 my-3 w-10/12 mx-auto">
+
                         <div>
                             <div class="card__product-descriptions-tags">
                                 <span v-for="tag in product.tags" class="card__product-descriptions-tag">{{ tag.name }}</span>
@@ -100,7 +120,7 @@
 
                             <div class="t_card__product-descriptions-prices">
                                 <div v-if="product.price_original < product.price_seller || product.price_seller == '' || product.price_seller == '0'">
-                                    <p class="t_card__product-descriptions-price-green">{{ formatCurrency(product.price_original)}}</p>
+                                    <p class="t_card__product-descriptions-price-green text-2xl">{{ formatCurrency(product.price_original)}}</p>
                                 </div>
                                 <div v-else>
                                     <span class="mr-2 t_card__product-descriptions-price-green">{{ formatCurrency(product.price_seller)}}</span>
@@ -113,7 +133,7 @@
                                 
                             </div>
 
-                            <ImgTumbLightbox 
+                            <ImgLightbox 
                                 v-if="product.image_hero != ''"
                                 class="w-4/12 card__product-img"
                                 :uri="urlBack()+product.image_hero_uri"
@@ -122,10 +142,10 @@
                                 nameAlbum="productos"
                             />
 
-                            
+                            <hr class="border-primary-300 my-3 w-10/12 mx-auto">
 
                             <div class="mt-1">
-                                <p class="card__product-descriptions-name">{{ product.name }}</p>
+                                <p class="card__product-descriptions-name mb-3">{{ product.name }}</p>
                                 <p class="card__product-descriptions-description-without-line">{{ product.description }}</p>
                                 <p class="card__product-descriptions-description-without-line">{{ product.description2 }}</p>
                                 <p class="card__product-descriptions-description-without-line">{{ product.description3 }}</p>
@@ -134,16 +154,7 @@
                     </div>
                     </div>
                 </div>
-
             </div>
-            <ImgTumbLightbox 
-                v-if="product.image_hero != ''"
-                class="w-4/12 card__product-img"
-                :uri="urlBack()+product.image_hero_uri"
-                :name="product.image_hero"
-                :nameImg="product.category + ' - ' + product.name"
-                nameAlbum="productos"
-            />
 
         </div>
 

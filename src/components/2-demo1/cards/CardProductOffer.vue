@@ -1,4 +1,5 @@
 <script setup>
+    import { ref } from 'vue';
     // importar lightbox
     import ImgTumbLightbox from '@/components/sistem/ImgTumbLightbox.vue'
     
@@ -15,6 +16,8 @@
         product: {type: Object, required: true},
         addToListButton: {type: Number},
     })
+
+    const showModal = ref(false)
 </script>
 
 <template>
@@ -59,8 +62,11 @@
 
                 </div>
 
-                <div v-if="addToListButton">
-                    <button class="t_card__product-descriptions-add" @click="apiList.addToList(product)">Agregar</button>
+                <div class="flex justify-between items-center">
+                    <div v-if="addToListButton">
+                        <button class="t_card__product-descriptions-add" @click="apiList.addToList(product)">Agregar</button>
+                    </div>
+
                 </div>
             </div>
 
