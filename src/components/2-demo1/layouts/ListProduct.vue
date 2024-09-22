@@ -44,7 +44,7 @@
     <div class="px-2" >
 
         <!-- boton flotante para listado -->
-        <div class="fixed top-8 right-5 md:right-auto z-50">
+        <div class="fixed top-8 left-5 md:right-auto z-50">
             <button data-modal-target="list-product-modal" data-modal-toggle="list-product-modal" class="bg-primary-700 text-gray-50 font-bold border-2 border-primary-900 rounded-2xl" type="button">
                 <SocialIcons icon="cart" class="p-4"/>
             </button>
