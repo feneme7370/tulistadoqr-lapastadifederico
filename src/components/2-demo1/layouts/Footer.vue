@@ -98,10 +98,23 @@
 
         </div>
 
-        <hr class="my-6 border border-gray-700 sm:mx-auto lg:my-8" />
+        <hr class="my-6 border border-gray-700 mx-auto lg:my-8" />
 
         <!-- derechos reservados -->
-        <div class="sm:flex sm:items-center sm:justify-between">
+        <div class="flex items-center justify-center">
+            <div class="text-center">
+                <p class="text-sm text-gray-400 sm:text-center mb-3">Si queres tener tu pagina entra a <a href="https://tulistadoqr.femaser.com" target="_blank" class="hover:underline">www.tulistadoqr.femaser.com</a>
+                </p>
+          
+                <p class="text-sm text-gray-400 sm:text-center mb-3">o al Whatsapp <a class="flex items-center justify-center gap-1 text-gray-400 font-bold hover:underline" target="_blank" :href="'https://api.whatsapp.com/send/?phone='+urlDeWhatsapp+'&amp;text='+encodeURIComponent('\*Quiero consultar\*: \n')">
+                    <SocialIcons icon="whatsapp" class=" fill-gray-400"/>
+                    <span class="text-gray-400 font-bold">+ 54 9 2396513953</span>
+                </a>
+                </p>
+            </div>
+        </div>
+        <!-- derechos reservados -->
+        <div class="flex items-center justify-center">
             <div class="text-center">
                 <span class="text-sm text-gray-400 sm:text-center ">© {{ dateYear }} - <a href="https://tulistadoqr.femaser.com" target="_blank" class="hover:underline">TuListadoQR</a>. All Rights Reserved.
                 </span>
