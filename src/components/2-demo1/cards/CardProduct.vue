@@ -1,4 +1,6 @@
 <script setup>
+    // importar componentes de vue
+    import { computed, ref } from 'vue';
 
     // importar lightbox
     import ImgTumbLightbox from '@/components/sistem/ImgTumbLightbox.vue'
@@ -9,6 +11,9 @@
 
     // carrito
     import { useListStore } from '@/stores/list';
+    
+    // modal
+    import SeeModalProduct from '@/components/2-demo1/cards/SeeModalProduct.vue'
 
     
     const apiList = useListStore()
@@ -17,11 +22,13 @@
         product: {type: Object, required: true},
         addToListButton: {type: Number},
     })
+
+    const showModal = ref(false)
 </script>
 
-<template>
+<template class="">
    
-    <div class="my-2 px-2">
+    <div class="my-2 px-2 card-product" :class="{'min-h-screen' : showModal}">
         
         <hr class="t_border-hr-card">
 
@@ -34,7 +41,13 @@
 
                 <div>
                     <p class="card__product-descriptions-name">{{ product.name }}</p>
-                    <p class="card__product-descriptions-description">{{ product.description }}</p>
+                    <div class="line-clamp-2">
+                        <p class="card__product-descriptions-description">
+                            {{ product.description }} 
+                            <br>{{ product.description2 }} 
+                            <br> {{ product.description3 }} 
+                        </p>
+                    </div>
                 </div>
 
                 <div class="card__product-descriptions-tags">
@@ -53,6 +66,72 @@
                     </div>
                     <div v-if="addToListButton">
                         <button class="t_card__product-descriptions-add" @click="apiList.addToList(product)">Agregar</button>
+                    </div>
+
+                    
+                </div>
+
+                <div>
+                    <!-- boton modal del producto -->
+                    <button @click="showModal = true" class="bg-primary-700 text-white font-bold border-2 border-primary-900 rounded-2xl px-3 py-1">
+                        Ver más detalles
+                    </button>
+                    <!-- Modal del producto -->
+                    <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-80 p-2 min-h-screen">
+                    <!-- Fondo del modal cubriendo toda la pantalla -->
+                    <div class="absolute inset-0 bg-gray-800 bg-opacity-80"></div>
+
+                    <!-- Contenido del modal centrado -->
+                    <div class="relative bg-white rounded-lg shadow-lg max-w-2xl h-full w-full p-5 z-10 overflow-auto">
+                        <div class="flex justify-between items-center">
+                        <h2 class="text-xl font-bold">{{ product.name }}</h2>
+                        <button @click="showModal = false" class="text-primary-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8">
+                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                        </button>
+                        </div>
+
+                        <!-- Detalle de producto en modal -->
+                        <div>
+                            <div class="card__product-descriptions-tags">
+                                <span v-for="tag in product.tags" class="card__product-descriptions-tag">{{ tag.name }}</span>
+                            </div>
+
+                            <div class="t_card__product-descriptions-prices">
+                                <div v-if="product.price_original < product.price_seller || product.price_seller == '' || product.price_seller == '0'">
+                                    <p class="t_card__product-descriptions-price-green">{{ formatCurrency(product.price_original)}}</p>
+                                </div>
+                                <div v-else>
+                                    <span class="mr-2 t_card__product-descriptions-price-green">{{ formatCurrency(product.price_seller)}}</span>
+                                    <span class="t_card__product-descriptions-price-red">{{ formatCurrency(product.price_original)}}</span>
+                                </div>
+                                <div v-if="addToListButton">
+                                    <button class="t_card__product-descriptions-add" @click="apiList.addToList(product)">Agregar</button>
+                                </div>
+
+                                
+                            </div>
+
+                            <ImgTumbLightbox 
+                                v-if="product.image_hero != ''"
+                                class="w-4/12 card__product-img"
+                                :uri="urlBack()+product.image_hero_uri"
+                                :name="product.image_hero"
+                                :nameImg="product.category + ' - ' + product.name"
+                                nameAlbum="productos"
+                            />
+
+                            
+
+                            <div class="mt-1">
+                                <p class="card__product-descriptions-name">{{ product.name }}</p>
+                                <p class="card__product-descriptions-description-without-line">{{ product.description }}</p>
+                                <p class="card__product-descriptions-description-without-line">{{ product.description2 }}</p>
+                                <p class="card__product-descriptions-description-without-line">{{ product.description3 }}</p>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
 
@@ -75,6 +154,16 @@
 
 <style scoped>
 
+/* Asegura que el modal cubra toda la pantalla */
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.card-product {
+  /* Asegura un espacio adecuado alrededor de los productos */
+  margin-bottom: 20px;
+}
+
     .card__product{
         @apply flex justify-center gap-1 my-2 text-gray-700 min-h-28;
     }
@@ -86,6 +175,9 @@
     }
     .card__product-descriptions-description{
         @apply mb-1 font-light text-sm line-clamp-2;
+    }
+    .card__product-descriptions-description-without-line{
+        @apply mb-1 font-light text-sm;
     }
     .card__product-descriptions-tags{
         @apply my-1 flex items-center gap-1 overflow-x-auto overflow-hidden;

@@ -43,6 +43,8 @@
       urlDeWhatsapp.value = whatsappObj ? whatsappObj.pivot.url : '';
     }
   });
+
+  const showModal = false
 </script>
 
 <template>
@@ -60,7 +62,7 @@
 
       <!-- boton y listado modal de productos -->
       <ListProduct 
-        class="max-w-5xl"
+        class="max-w-5xl absolute"
         :companiesDates="apiProducts.companiesDates"
         :urlDeWhatsapp="urlDeWhatsapp"
         :class="apiProducts.companiesDates.list_product ? 'block' : 'hidden'"
@@ -84,14 +86,9 @@
           id="apiProducts.menuSelected" 
           v-model="apiProducts.menuSelected"
           placeholder="Formato del menu" 
-<<<<<<< HEAD
           class=" my-2 mx-5 px-4 py-2 text-center border font-bold bg-primary-200 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-3/4"> -->
           <!-- <option selected>Choose a country</option> -->
           <!-- <option class="text-sm font-light mx-auto italic" value="1">Desplegable</option>
-=======
-          class=" my-2 mx-5 px-4 py-2 text-center border font-bold bg-primary-200 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-3/4">
-          <option class="text-sm font-light mx-auto italic" value="1">Desplegable</option>
->>>>>>> a8704dd0bfbe4c43d4615f0da25ed868906cfed8
           <option class="text-sm font-light mx-auto italic" value="2">Listado</option>
           <option class="text-sm font-light mx-auto italic" value="3">Secciones</option>
           <option class="text-sm font-light mx-auto italic" value="4">Tabla</option>

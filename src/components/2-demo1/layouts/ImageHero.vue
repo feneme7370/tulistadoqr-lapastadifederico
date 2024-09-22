@@ -32,13 +32,8 @@
     <!-- imagen de logo -->
     <img 
         loading="lazy"
-<<<<<<< HEAD
         class="absolute border border-primary-200 object-cover h-24 w-24 right-5 -bottom-10"
         :src="urlBack()+companiesDates.image_logo_uri+ companiesDates.image_logo" 
-=======
-        class="absolute border border-gray-800 object-cover h-24 w-24 right-5 -bottom-10"
-        :src="img_logo" 
->>>>>>> a8704dd0bfbe4c43d4615f0da25ed868906cfed8
         alt="imagen logo"
     >
 
