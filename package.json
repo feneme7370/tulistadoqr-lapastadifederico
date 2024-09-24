@@ -11,6 +11,8 @@
   "dependencies": {
     "animate.css": "^4.1.1",
     "axios": "^1.6.7",
+    "flowbite": "^2.5.1",
+    "flowbite-vue": "^0.1.6",
     "pinia": "^2.1.7",
     "swiper": "^11.0.6",
     "tailwind": "^4.0.0",

@@ -24,11 +24,14 @@
   import { useProductsStore } from '@/stores/products'
   const apiProducts = useProductsStore()
 
-  // cargar datos con id
+  import { initFlowbite } from 'flowbite'  // cargar datos con id
   onMounted(async ()=>{
         await apiProducts.loadDates(userId())
+        initFlowbite();
   })
 
+  // import SeeModalProduct from '@/components/2-demo1/cards/SeeModalProduct.vue';
+  // import SeeModalFlowbite from '@/components/2-demo1/cards/SeeModalFlowbite.vue';
   // const filtrarProductos = () => {
   //   return apiProducts.productsDates.filter(product => product.id != 0)
   // }
@@ -59,7 +62,7 @@
         class="mb-2" 
         :companiesDates="apiProducts.companiesDates"
       />
-
+     
       <!-- boton y listado modal de productos -->
       <ListProduct 
         class="max-w-5xl absolute"
