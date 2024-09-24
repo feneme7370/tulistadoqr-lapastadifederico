@@ -15,10 +15,10 @@
     
     // modal
     import { initFlowbite } from 'flowbite'
-  // cargar datos con id
-  onMounted(async ()=>{
-          initFlowbite();
-  })
+    // cargar datos con id
+    onMounted(async ()=>{
+            initFlowbite();
+    })
     
     const apiList = useListStore()
 
@@ -26,6 +26,11 @@
         product: {type: Object, required: true},
         addToListButton: {type: Number},
     })
+
+    const imageGallery = ref(urlBack()+props.product.image_hero_uri+props.product.image_hero)
+    const setImageGalley = (image) => {
+        imageGallery.value = image
+    }
 
 </script>
 
@@ -49,12 +54,12 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <div class="p-4 md:p-5 space-y-4">
-                    <div class="card__product-descriptions-tags">
+                <div class="p-1 md:p-5 space-y-1">
+                    <div class="px-4 card__product-descriptions-tags">
                         <span v-for="tag in product.tags" class="card__product-descriptions-tag">{{ tag.name }}</span>
                     </div>
 
-                    <div class="t_card__product-descriptions-prices">
+                    <div class="px-4 t_card__product-descriptions-prices">
                         <div v-if="product.price_original < product.price_seller || product.price_seller == '' || product.price_seller == '0'">
                         <p class="t_card__product-descriptions-price-green">{{ formatCurrency(product.price_original)}}</p>
                         </div>
@@ -65,34 +70,67 @@
                     <div v-if="addToListButton">
                         <button class="t_card__product-descriptions-add" @click="apiList.addToList(product)">Agregar</button>
                     </div>
+                    </div>      
 
-
-                </div>      
-
-                <hr class="border-primary-300 pb-3 w-10/12 mx-auto">
+                <hr class="border-primary-300 my-2 pb-3 w-10/12 mx-auto">
                 
-                <ImgLightbox 
-                    v-if="product.image_hero != ''"
-                    class="card__product-img"
-                    :uri="urlBack()+product.image_hero_uri"
-                    :name="product.image_hero"
-                    :nameImg="product.category + ' - ' + product.name"
-                    nameAlbum="productos"
-                />
-                
-                <hr class="border-primary-300 mb-1 w-10/12 mx-auto">
+                <div class="grid gap-4">
+                    <div class="rounded-lg overflow-hidden">
+                        <ImgLightbox 
+                            v-if="product.image_hero != ''"
+                            class="h-auto max-w-full rounded-lg"
+                            :uri="imageGallery"
+                            :name="''"
+                            :nameImg="product.category + ' - ' + product.name"
+                            :nameAlbum="product.id"
+                        />
+                    </div>
 
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                    <div class="grid grid-cols-6 gap-4 mb-2">
+                        <div>
+                            <img class="h-auto max-w-full rounded-lg" @click="setImageGalley(urlBack()+product.image_hero_uri+product.image_hero)" :src="urlBack()+product.image_hero_uri+product.image_hero" alt="">
+                           
+                            <!-- <ImgLightbox 
+                                v-if="product.image_hero != ''"
+                                class="h-auto max-w-full rounded-lg hidden"
+                                :uri="urlBack()+product.image_hero_uri+product.image_hero"
+                                :name="''"
+                                :nameImg="product.category + ' - ' + product.name"
+                                :nameAlbum="product.id"
+                            /> -->
+                        </div>
+
+                        <div v-for="picture in product.pictures">
+                            <img class="h-auto max-w-full rounded-lg" @click="setImageGalley(urlBack()+picture.route+picture.name)" :src="urlBack()+picture.route+picture.name" alt="">
+
+                            <ImgLightbox 
+                                v-if="product.image_hero != ''"
+                                class="h-auto max-w-full rounded-lg hidden"
+                                :uri="urlBack()+picture.route+picture.name"
+                                :name="''"
+                                :nameImg="product.category + ' - ' + product.name"
+                                :nameAlbum="product.id"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+
+                
+                <hr class="border-primary-300 my-2 w-10/12 mx-auto">
+
+                <h3 class="text-sm font-bold text-gray-900 dark:text-white">
                         {{ product.name }}
                 </h3>
 
-                <p class="card__product-descriptions-description2">
-                    {{ product.description }} 
-                    <br>{{ product.description2 }} 
-                    <br> {{ product.description3 }} 
+                <p class="card__product-descriptions-description2 space-y-1">
+                    <p>{{ product.description }}</p> 
+                    <p>{{ product.description2 }}</p> 
+                    <p>{{ product.description3 }}</p>
                 </p>
 
-            </div>
+                </div>
+
                 <!-- Modal footer -->
                 <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                     <!-- <button :data-modal-hide="'default-modal'+product.id" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button> -->
@@ -117,9 +155,9 @@
                     <p class="card__product-descriptions-name">{{ product.name }}</p>
                     <div class="line-clamp-2">
                         <p class="card__product-descriptions-description">
-                            {{ product.description }} 
-                            <br>{{ product.description2 }} 
-                            <br> {{ product.description3 }} 
+                            <p>{{ product.description }}</p> 
+                            <p>{{ product.description2 }}</p> 
+                            <p>{{ product.description3 }}</p>
                         </p>
                     </div>
                 </div>
@@ -157,10 +195,10 @@
                     :uri="urlBack()+product.image_hero_uri"
                     :name="product.image_hero"
                     :nameImg="product.category + ' - ' + product.name"
-                    nameAlbum="productos"
+                    :nameAlbum="product.category"
                 />
     
-                <button :data-modal-target="'default-modal'+product.id" :data-modal-toggle="'default-modal'+product.id" class="block text-white bg-primary-200 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-3 py-1 text-center dark:bg-primary-200 dark:hover:bg-primary-700 dark:focus:ring-primary-800" type="button">
+                <button :data-modal-target="'default-modal'+product.id" :data-modal-toggle="'default-modal'+product.id" class="block text-white bg-primary-200 hover:bg-primary-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-3 py-1 text-center dark:bg-primary-200  dark:focus:ring-primary-800" type="button">
                     Ver Mas
                 </button>
             </div>
@@ -191,6 +229,9 @@
     }
     .card__product-descriptions-description{
         @apply mb-1 font-light text-sm line-clamp-3;
+    }
+    .card__product-descriptions-description2{
+        @apply mb-1 font-light text-sm;
     }
     .card__product-descriptions-description-without-line{
         @apply mb-1 font-light text-sm;
