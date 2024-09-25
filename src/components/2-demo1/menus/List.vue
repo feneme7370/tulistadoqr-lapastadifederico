@@ -73,7 +73,6 @@
                     v-for="product in filterProducts(category.id)" 
                     :key="product.id"
                     
-                    class="animate__animated animate__faster animate__bounceIn"
                     :product="product"
                     :addToListButton="companiesDates.membership.list_product"
                   />

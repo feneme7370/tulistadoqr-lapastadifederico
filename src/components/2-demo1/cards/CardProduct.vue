@@ -1,7 +1,7 @@
 <script setup>
     // importar componentes de vue
     import { computed, ref, onMounted } from 'vue';
-
+    import router from '@/router';
     // importar lightbox
     import ImgTumbLightbox from '@/components/sistem/ImgTumbLightbox.vue'
     import ImgLightbox from '@/components/sistem/ImgLightbox.vue'
@@ -34,7 +34,7 @@
 
 </script>
 
-<template class="">
+<template>
 
     <!-- Main modal -->
     <div :id="'default-modal'+product.id" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -82,26 +82,26 @@
                             :uri="imageGallery"
                             :name="''"
                             :nameImg="product.category + ' - ' + product.name"
-                            :nameAlbum="product.id"
+                            :nameAlbum="'product-'+product.id"
                         />
                     </div>
 
                     <div class="grid grid-cols-6 gap-4 mb-2">
                         <div>
-                            <img class="h-auto max-w-full rounded-lg" @click="setImageGalley(urlBack()+product.image_hero_uri+product.image_hero)" :src="urlBack()+product.image_hero_uri+product.image_hero" alt="">
+                            <img class="h-full max-w-full rounded-lg object-cover" @click="setImageGalley(urlBack()+product.image_hero_uri+product.image_hero)" :src="urlBack()+product.image_hero_uri+product.image_hero" alt="">
                            
-                            <!-- <ImgLightbox 
+                            <ImgLightbox 
                                 v-if="product.image_hero != ''"
                                 class="h-auto max-w-full rounded-lg hidden"
                                 :uri="urlBack()+product.image_hero_uri+product.image_hero"
                                 :name="''"
                                 :nameImg="product.category + ' - ' + product.name"
-                                :nameAlbum="product.id"
-                            /> -->
+                                :nameAlbum="'product-'+product.id"
+                            />
                         </div>
 
                         <div v-for="picture in product.pictures">
-                            <img class="h-auto max-w-full rounded-lg" @click="setImageGalley(urlBack()+picture.route+picture.name)" :src="urlBack()+picture.route+picture.name" alt="">
+                            <img class="h-full max-w-full rounded-lg object-cover" @click="setImageGalley(urlBack()+picture.route+picture.name)" :src="urlBack()+picture.route+picture.name" alt="">
 
                             <ImgLightbox 
                                 v-if="product.image_hero != ''"
@@ -109,7 +109,7 @@
                                 :uri="urlBack()+picture.route+picture.name"
                                 :name="''"
                                 :nameImg="product.category + ' - ' + product.name"
-                                :nameAlbum="product.id"
+                                :nameAlbum="'product-'+product.id"
                             />
                         </div>
                     </div>
@@ -134,13 +134,13 @@
                 <!-- Modal footer -->
                 <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                     <!-- <button :data-modal-hide="'default-modal'+product.id" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button> -->
-                    <button :data-modal-hide="'default-modal'+product.id" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Salir</button>
+                    <button :data-modal-hide="'default-modal'+product.id" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" >Salir</button>
                 </div>
             </div>
         </div>
     </div>
 
-        <div class="my-2 px-2 ">
+    <div class="my-2 px-2 ">
             
         <hr class="t_border-hr-card">
 
@@ -152,7 +152,7 @@
             >
 
                 <div>
-                    <p class="card__product-descriptions-name">{{ product.name }}</p>
+                    <p class="card__product-descriptions-name"><a :href="urlFront()+'product/6/'+product.id">{{ product.name }}</a></p>
                     <div class="line-clamp-2">
                         <p class="card__product-descriptions-description">
                             <p>{{ product.description }}</p> 

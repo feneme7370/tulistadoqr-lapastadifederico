@@ -5,5 +5,6 @@ export const urlBack = () => {
 }
 
 export const urlFront = () => {
-    return 'http://localhost:5173/'
+    return 'https://tulistadoqr.femaser.com/'
+    // return 'http://localhost:5173/'
 }

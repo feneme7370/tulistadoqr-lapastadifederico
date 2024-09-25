@@ -105,6 +105,9 @@
             <div class="text-center">
                 <p class="text-sm text-gray-400 sm:text-center mb-3">Si queres tener tu pagina entra a <a href="https://tulistadoqr.femaser.com" target="_blank" class="hover:underline">www.tulistadoqr.femaser.com</a>
                 </p>
+
+                <p class="text-sm text-gray-400 sm:text-center mb-3">Podes mandarnos un email a tulistadoqr@gmail.com
+                </p>
           
                 <p class="text-sm text-gray-400 sm:text-center mb-3">o al Whatsapp <a class="flex items-center justify-center gap-1 text-gray-400 font-bold hover:underline" target="_blank" :href="'https://api.whatsapp.com/send/?phone='+urlDeWhatsapp+'&amp;text='+encodeURIComponent('\*Quiero consultar\*: \n')">
                     <SocialIcons icon="whatsapp" class=" fill-gray-400"/>

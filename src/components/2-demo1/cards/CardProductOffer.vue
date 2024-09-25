@@ -1,7 +1,8 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     // importar lightbox
     import ImgTumbLightbox from '@/components/sistem/ImgTumbLightbox.vue'
+    import ImgLightbox from '@/components/sistem/ImgLightbox.vue'
     
     // helper de moneda y uri
     import { formatCurrency } from '@/helpers/price'
@@ -10,6 +11,13 @@
     // carrito
     import { useListStore } from '@/stores/list';
   
+    // modal
+    import { initFlowbite } from 'flowbite'
+    // cargar datos con id
+    onMounted(async ()=>{
+            initFlowbite();
+    })
+
     const apiList = useListStore()
 
     const props = defineProps({
@@ -17,11 +25,18 @@
         addToListButton: {type: Number},
     })
 
+    const imageGallery = ref(urlBack()+props.product.image_hero_uri+props.product.image_hero)
+    const setImageGalley = (image) => {
+        imageGallery.value = image
+    }
+
     const showModal = ref(false)
 </script>
 
 <template>
-   
+
+
+
     <div class="my-2 px-2 py-1 bg-primary-100 h-full">
 
         <hr class="t_border-hr-card">

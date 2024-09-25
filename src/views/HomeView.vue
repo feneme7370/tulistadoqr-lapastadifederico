@@ -3,6 +3,7 @@
   import { ref, onMounted, watch } from 'vue';
   import SocialIcons from '@/components/sistem/SocialIcons.vue';
 
+  import Navbar from '@/components/2-demo1/layouts/Navbar.vue';
   import ImageHero from '@/components/2-demo1/layouts/ImageHero.vue';
   import ImageDescription from '@/components/2-demo1/layouts/ImageDescription.vue';
   import CardProductSuggestion from '@/components/2-demo1/cards/CardProductSuggestion.vue';
@@ -57,10 +58,14 @@
     <!-- contenedor de todos los datos -->
     <div class="bg-primary-50 max-w-5xl mx-auto relative">
 
+      
+      <!-- <Navbar
+        class="absolute w-full h-20 z-50"
+      /> -->
       <!-- portada -->
       <ImageHero 
-        class="mb-2" 
-        :companiesDates="apiProducts.companiesDates"
+      class="mb-2" 
+      :companiesDates="apiProducts.companiesDates"
       />
      
       <!-- boton y listado modal de productos -->
@@ -69,6 +74,7 @@
         :companiesDates="apiProducts.companiesDates"
         :urlDeWhatsapp="urlDeWhatsapp"
         :class="apiProducts.companiesDates.list_product ? 'block' : 'hidden'"
+        :isFixed="true"
       />
 
       <!-- direccion, localidad y boton a whatsapp -->
